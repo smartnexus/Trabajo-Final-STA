@@ -1,0 +1,17 @@
+services:
+  webapp:  
+    image: tomcat:9.0.37-jdk8
+    ports:
+      - "80:8080"
+    volumes:
+      - ../Otros/web/server.xml:/usr/local/tomcat/conf/server.xml
+      - ../Otros/web/seguridad-1.0.war:/usr/local/tomcat/webapps/ROOT.war
+    links:
+      - db
+
+  db:  
+    image: "postgres:12.5"
+    env_file:
+      - ../Otros/db/database.env
+    volumes:
+      - ../Otros/db/data:/var/lib/postgresql/data
